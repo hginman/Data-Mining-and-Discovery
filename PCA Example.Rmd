@@ -13,7 +13,6 @@ options(repos = c(CRAN = "https://cran.rstudio.com"))
 library(tidyverse)
 library(FactoMineR)
 library(factoextra)
-library(corrr)
 library(ggcorrplot)
 
 ```
@@ -22,23 +21,37 @@ Load the Iris dataset
 data("iris")
 
 ```
+Briefly explore dataset
+```{r}
+head(iris)
+summary(iris)
+
+```
+
 Normalize the dataset
 ```{r}
 iris_norm <- iris %>% select(-Species)
 iris_scale <- scale(iris_norm)
 
 ```
-Compute and visualize the correlation matrix
+Compute and visualize the covariance matrix
 ```{r}
-corr_matrix <- cor(iris_scale)
-ggcorrplot(corr_matrix)
-
+cov_matrix_scaled <- cov(iris_scale)
+heatmap_plot <- ggcorrplot(cov_matrix_scaled, hc.order = TRUE, type = "lower",
+                           lab = TRUE, lab_size = 3, tl.cex = 12, title = "Heatmap of Covariance Matrix")
+print(heatmap_plot)
 ```
 
 
 
 
+Calculate and display principal components
+```{r}
+p_comp <- prcomp(iris_scale)
+p_comp$rotation <- -1*p_comp$rotation
+print(p_comp)
 
+```
 Perform PCA on the dataset
 ```{r}
 pca <- PCA(iris_scale, scale.unit = TRUE, graph = FALSE)
@@ -47,7 +60,6 @@ pca <- PCA(iris_scale, scale.unit = TRUE, graph = FALSE)
 Print a summary of the PCA results
 ```{r}
 summary(pca)
-print(summary)
 ```
 Visualize the PCA results
 ```{r}
