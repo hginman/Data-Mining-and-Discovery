@@ -1,0 +1,60 @@
+---
+title: "PCA Example (Iris)"
+author: "Hayden Ginman"
+date: "2023-04-24"
+output: html_document
+
+
+---
+Install the requisite packages to easily perform PCA and load the required libraries
+```{r}
+options(repos = c(CRAN = "https://cran.rstudio.com"))
+# install.packages(c("tidyverse", "FactoMineR", "factoextra", "corrr", "ggcorrplot"))
+library(tidyverse)
+library(FactoMineR)
+library(factoextra)
+library(corrr)
+library(ggcorrplot)
+
+```
+Load the Iris dataset
+```{r}
+data("iris")
+
+```
+Normalize the dataset
+```{r}
+iris_norm <- iris %>% select(-Species)
+iris_scale <- scale(iris_norm)
+
+```
+Compute and visualize the correlation matrix
+```{r}
+corr_matrix <- cor(iris_scale)
+ggcorrplot(corr_matrix)
+
+```
+
+
+
+
+
+Perform PCA on the dataset
+```{r}
+pca <- PCA(iris_scale, scale.unit = TRUE, graph = FALSE)
+
+```
+Print a summary of the PCA results
+```{r}
+summary(pca)
+print(summary)
+```
+Visualize the PCA results
+```{r}
+fviz_eig(pca, addlabels = TRUE, ylim = c(0, 100), ggtheme = theme_minimal())
+
+fviz_pca_biplot(pca, label = "var", habillage = iris$Species,
+                addEllipses = TRUE, ellipse.type = "confidence",
+                palette = "jco", ggtheme = theme_minimal())
+
+```
