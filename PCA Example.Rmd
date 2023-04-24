@@ -48,7 +48,6 @@ print(heatmap_plot)
 Calculate and display principal components
 ```{r}
 p_comp <- prcomp(iris_scale)
-p_comp$rotation <- -1*p_comp$rotation
 print(p_comp)
 
 ```
