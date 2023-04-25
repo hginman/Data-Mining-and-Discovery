@@ -49,6 +49,7 @@ p_comp <- prcomp(iris_scale)
 print(p_comp)
 
 ```
+
 Perform PCA on the dataset
 ```{r}
 pca <- PCA(iris_scale, scale.unit = TRUE, graph = FALSE)
@@ -66,4 +67,19 @@ fviz_pca_biplot(pca, label = "var", habillage = iris$Species,
                 addEllipses = TRUE, ellipse.type = "confidence",
                 palette = "jco", ggtheme = theme_minimal())
 
+```
+Transform the data
+```{r}
+loadings <- pca$var$coord[, 1:2]
+transformed_data <- as.data.frame(iris_scale %*% loadings)
+transformed_data$Species <- iris$Species
+colnames(transformed_data) <- c("PC1", "PC2", "Species")
+
+ggplot(transformed_data, aes(x = PC1, y = PC2, color = Species)) +
+  geom_point(size = 3) +
+  theme_minimal() +
+  labs(title = "PCA of Iris Dataset",
+       x = "Principal Component 1",
+       y = "Principal Component 2",
+       color = "Species")
 ```
