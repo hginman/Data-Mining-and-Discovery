@@ -3,13 +3,11 @@ title: "PCA Example (Iris)"
 author: "Hayden Ginman"
 date: "2023-04-24"
 output: html_document
-
-
 ---
 Install the requisite packages to easily perform PCA and load the required libraries
 ```{r}
 options(repos = c(CRAN = "https://cran.rstudio.com"))
-# install.packages(c("tidyverse", "FactoMineR", "factoextra", "corrr", "ggcorrplot"))
+# install.packages(c("tidyverse", "FactoMineR", "factoextra", "ggcorrplot"))
 library(tidyverse)
 library(FactoMineR)
 library(factoextra)
