@@ -14,52 +14,56 @@ library(factoextra)
 library(ggcorrplot)
 
 ```
-Load the Iris dataset
+1. Load the Iris dataset
 ```{r}
 data("iris")
 
 ```
-Briefly explore dataset
+2. Briefly explore dataset
 ```{r}
 head(iris)
 summary(iris)
 
 ```
 
-Normalize the dataset
+3. Normalize the dataset
 ```{r}
 iris_norm <- iris %>% select(-Species)
 iris_scale <- scale(iris_norm)
 
 ```
-Compute and visualize the covariance matrix
+4. Compute and visualize the covariance matrix
 ```{r}
 cov_matrix_scaled <- cov(iris_scale)
+
+print(cov_matrix_scaled)
+
 heatmap_plot <- ggcorrplot(cov_matrix_scaled, hc.order = TRUE, type = "lower",
                            lab = TRUE, lab_size = 3, tl.cex = 12, title = "Heatmap of Covariance Matrix")
 print(heatmap_plot)
+
 ```
 
 
 
 
-Calculate and display principal components
+5. Calculate and display principal components
 ```{r}
 p_comp <- prcomp(iris_scale)
 print(p_comp)
 
 ```
 
-Perform PCA on the dataset
+6. Perform PCA on the dataset
 ```{r}
 pca <- PCA(iris_scale, scale.unit = TRUE, graph = FALSE)
 
 ```
-Print a summary of the PCA results
+7. Print a summary of the PCA results
 ```{r}
 summary(pca)
 ```
-Visualize the PCA results
+8. Visualize the PCA results
 ```{r}
 fviz_eig(pca, addlabels = TRUE, ylim = c(0, 100), ggtheme = theme_minimal())
 
@@ -68,13 +72,24 @@ fviz_pca_biplot(pca, label = "var", habillage = iris$Species,
                 palette = "jco", ggtheme = theme_minimal())
 
 ```
-Transform the data
+
+
+
+
+
+
+
+
+9. Transform the data
 ```{r}
 loadings <- pca$var$coord[, 1:2]
 transformed_data <- as.data.frame(iris_scale %*% loadings)
 transformed_data$Species <- iris$Species
 colnames(transformed_data) <- c("PC1", "PC2", "Species")
 
+```
+10. Visualize the transformed data
+```{r}
 ggplot(transformed_data, aes(x = PC1, y = PC2, color = Species)) +
   geom_point(size = 3) +
   theme_minimal() +
