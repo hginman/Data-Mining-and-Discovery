@@ -523,7 +523,8 @@ colnames(transformed_data) &lt;- c(&quot;PC1&quot;, &quot;PC2&quot;, &quot;Speci
 <ol start="10" style="list-style-type: decimal">
 <li>Visualize the transformed data</li>
 </ol>
-<pre class="r"><code>ggplot(transformed_data, aes(x = PC1, y = PC2, color = Species)) +
+<pre class="r"><code>#Scatterplot of transformed dataset that shows the relationship between the first 2 principal components
+ggplot(transformed_data, aes(x = PC1, y = PC2, color = Species)) +
   geom_point(size = 3) +
   theme_minimal() +
   labs(title = &quot;PCA of Iris Dataset&quot;,

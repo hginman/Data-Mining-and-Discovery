@@ -98,6 +98,7 @@ colnames(transformed_data) <- c("PC1", "PC2", "Species")
 ```
 10. Visualize the transformed data
 ```{r}
+#Scatterplot of transformed dataset that shows the relationship between the first 2 principal components
 ggplot(transformed_data, aes(x = PC1, y = PC2, color = Species)) +
   geom_point(size = 3) +
   theme_minimal() +
