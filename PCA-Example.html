@@ -409,7 +409,7 @@ library(factoextra)</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Normalize the dataset</li>
 </ol>
-<pre class="r"><code>#Removes species column to isolate numerical values
+<pre class="r"><code>#Removes species column to isolate numerical values (Remove categorical variable)
 iris_norm &lt;- iris %&gt;% select(-Species)
 #Scales the data: centers the data by subtracting the mean of each variable from each observation, and then divide by the standard deviation of each variable, or by the square root of the variance. 
 iris_scale &lt;- scale(iris_norm)</code></pre>

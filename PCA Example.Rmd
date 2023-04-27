@@ -28,7 +28,7 @@ summary(iris)
 
 3. Normalize the dataset
 ```{r}
-#Removes species column to isolate numerical values
+#Removes species column to isolate numerical values (Remove categorical variable)
 iris_norm <- iris %>% select(-Species)
 #Scales the data: centers the data by subtracting the mean of each variable from each observation, and then divide by the standard deviation of each variable, or by the square root of the variance. 
 iris_scale <- scale(iris_norm)
